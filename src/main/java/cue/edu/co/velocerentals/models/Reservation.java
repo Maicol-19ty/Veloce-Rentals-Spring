@@ -1,14 +1,17 @@
 package cue.edu.co.velocerentals.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
+@Getter
+@ToString
+@Builder
 @Entity
 @Table(name = "reservations", schema = "veloce_rentals")
 public class Reservation {
