@@ -15,7 +15,7 @@ public class ReservationsMapper {
     // Method to map from ReservationsDTo DTO to Reservations model.
     public static Reservation mapFromDTO(ReservationsDTo reservationsDTo) {
         return Reservation.builder()
-                .id(reservationsDTo.reservation_id())
+                .id(reservationsDTo.id())
                 .user(reservationsDTo.user())
                 .vehicle(reservationsDTo.vehicle())
                 .startDate(reservationsDTo.startDate())

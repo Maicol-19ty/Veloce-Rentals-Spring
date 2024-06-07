@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
-public record ReservationsDTo(Integer reservation_id, User user, Vehicle vehicle,
+public record ReservationsDTo(Integer id, User user, Vehicle vehicle,
                               LocalDate startDate, LocalDate endDate, BigDecimal totalCost) {
 }
