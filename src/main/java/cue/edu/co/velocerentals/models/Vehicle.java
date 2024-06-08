@@ -1,14 +1,17 @@
 package cue.edu.co.velocerentals.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
+@Getter
+@ToString
+@Builder
 @Entity
 @Table(name = "vehicles", schema = "veloce_rentals")
 public class Vehicle {

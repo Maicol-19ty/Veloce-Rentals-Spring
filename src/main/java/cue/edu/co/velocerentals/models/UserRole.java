@@ -1,11 +1,14 @@
 package cue.edu.co.velocerentals.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
+@Getter
+@ToString
+@Builder
 @Entity
 @Table(name = "user_roles", schema = "veloce_rentals")
 public class UserRole {

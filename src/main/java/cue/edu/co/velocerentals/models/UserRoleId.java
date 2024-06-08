@@ -2,14 +2,19 @@ package cue.edu.co.velocerentals.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
+@Getter
+@ToString
+@Builder
+@Entity
 @Embeddable
 public class UserRoleId implements java.io.Serializable {
     private static final long serialVersionUID = 8125854288496627153L;

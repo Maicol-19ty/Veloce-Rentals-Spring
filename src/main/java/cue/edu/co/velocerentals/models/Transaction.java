@@ -1,15 +1,18 @@
 package cue.edu.co.velocerentals.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
+@Getter
+@ToString
+@Builder
 @Entity
 @Table(name = "transactions", schema = "veloce_rentals")
 public class Transaction {
