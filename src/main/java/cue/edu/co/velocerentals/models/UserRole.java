@@ -12,6 +12,7 @@ import lombok.*;
 @Entity
 @Table(name = "user_roles", schema = "veloce_rentals")
 public class UserRole {
+
     @EmbeddedId
     private UserRoleId id;
 
@@ -24,5 +25,4 @@ public class UserRole {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
-
 }

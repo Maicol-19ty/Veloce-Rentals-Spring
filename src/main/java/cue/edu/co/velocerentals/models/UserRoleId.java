@@ -2,10 +2,10 @@ package cue.edu.co.velocerentals.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -14,10 +14,10 @@ import java.util.Objects;
 @Getter
 @ToString
 @Builder
-@Entity
 @Embeddable
-public class UserRoleId implements java.io.Serializable {
+public class UserRoleId implements Serializable {
     private static final long serialVersionUID = 8125854288496627153L;
+
     @Column(name = "user_id", nullable = false)
     private Integer userId;
 
@@ -37,5 +37,4 @@ public class UserRoleId implements java.io.Serializable {
     public int hashCode() {
         return Objects.hash(roleId, userId);
     }
-
 }
