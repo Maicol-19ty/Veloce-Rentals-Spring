@@ -1,5 +1,7 @@
 package cue.edu.co.velocerentals.models;
 
+import cue.edu.co.velocerentals.enums.VehicleStatus;
+import cue.edu.co.velocerentals.enums.VehicleType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -17,11 +19,12 @@ import java.math.BigDecimal;
 public class Vehicle {
     @Id
     @Column(name = "vehicle_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private String type;
+    private VehicleType type;
 
     @Column(name = "make", nullable = false)
     private String make;
@@ -36,8 +39,8 @@ public class Vehicle {
     private BigDecimal pricePerDay;
 
     @ColumnDefault("'available'")
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status;
+    private VehicleStatus status;
 
 }

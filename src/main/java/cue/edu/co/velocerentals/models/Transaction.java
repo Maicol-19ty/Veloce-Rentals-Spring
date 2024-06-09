@@ -1,5 +1,6 @@
 package cue.edu.co.velocerentals.models;
 
+import cue.edu.co.velocerentals.enums.PaymentMethods;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -32,8 +33,8 @@ public class Transaction {
     @Column(name = "transaction_date")
     private Instant transactionDate;
 
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false)
-    private String paymentMethod;
+    private PaymentMethods paymentMethod;
 
 }
