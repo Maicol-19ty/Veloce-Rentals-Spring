@@ -1,4 +1,4 @@
-package cue.edu.co.velocerentals.enums;
+package cue.edu.co.velocerentals.domain.enums;
 
 // Enum representing different payment methods.
 public enum PaymentMethods {

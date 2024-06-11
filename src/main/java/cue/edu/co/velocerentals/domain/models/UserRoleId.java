@@ -1,4 +1,4 @@
-package cue.edu.co.velocerentals.models;
+package cue.edu.co.velocerentals.domain.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

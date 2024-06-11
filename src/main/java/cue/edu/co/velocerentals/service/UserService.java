@@ -1,8 +1,8 @@
 package cue.edu.co.velocerentals.service;
 
-import cue.edu.co.velocerentals.mapping.DTO.UserDTo;
+import cue.edu.co.velocerentals.mapping.dto.UserDTO;
 import cue.edu.co.velocerentals.mapping.mappers.UserMapper;
-import cue.edu.co.velocerentals.models.User;
+import cue.edu.co.velocerentals.domain.models.User;
 import cue.edu.co.velocerentals.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,24 +17,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDTo createUser(UserDTo usersDTo) {
+    public UserDTO createUser(UserDTO usersDTo) {
         User user = UserMapper.mapFromDTO(usersDTo);
         user = userRepository.save(user);
         return UserMapper.mapFromModel(user);
     }
 
-    public UserDTo getUserById(Integer id) {
+    public UserDTO getUserById(Integer id) {
         Optional<User> user = userRepository.findById(id);
         return user.map(UserMapper::mapFromModel).orElse(null);
     }
 
-    public List<UserDTo> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(UserMapper::mapFromModel)
                 .collect(Collectors.toList());
     }
 
-    public UserDTo updateUser(Integer id, UserDTo usersDTo) {
+    public UserDTO updateUser(Integer id, UserDTO usersDTo) {
         Optional<User> userOptional = userRepository.findById((id));
         if (userOptional.isPresent()) {
             User user = userOptional.get();
