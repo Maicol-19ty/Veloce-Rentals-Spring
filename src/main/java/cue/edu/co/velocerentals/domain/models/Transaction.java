@@ -1,6 +1,6 @@
-package cue.edu.co.velocerentals.models;
+package cue.edu.co.velocerentals.domain.models;
 
-import cue.edu.co.velocerentals.enums.PaymentMethods;
+import cue.edu.co.velocerentals.domain.enums.PaymentMethods;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;

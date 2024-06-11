@@ -1,14 +1,16 @@
 package cue.edu.co.velocerentals;
 
-import cue.edu.co.velocerentals.mapping.DTO.UserDTo;
-import cue.edu.co.velocerentals.models.User;
+import cue.edu.co.velocerentals.mapping.dto.UserDTO;
+import cue.edu.co.velocerentals.domain.models.User;
 import cue.edu.co.velocerentals.repository.UserRepository;
 import cue.edu.co.velocerentals.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
@@ -25,7 +28,7 @@ public class UserServiceTest {
     private UserService userService;
 
     private User user;
-    private UserDTo usersDTo;
+    private UserDTO usersDTo;
 
     @BeforeEach
     public void setUp() {
@@ -41,8 +44,8 @@ public class UserServiceTest {
                 .lastLogin(Instant.now())
                 .build();
 
-        usersDTo = new UserDTo(
-                1, "testuser", "password", "testuser@example.com",
+        usersDTo = new UserDTO(
+                "testuser", "password", "testuser@example.com",
                 "Test User", Instant.now(), Instant.now()
         );
     }
@@ -51,7 +54,7 @@ public class UserServiceTest {
     public void testCreateUser() {
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-        UserDTo createdUser = userService.createUser(usersDTo);
+        UserDTO createdUser = userService.createUser(usersDTo);
 
         assertNotNull(createdUser);
         assertEquals(user.getUsername(), createdUser.username());
@@ -62,7 +65,7 @@ public class UserServiceTest {
     public void testGetUserById() {
         when(userRepository.findById(anyInt())).thenReturn(Optional.of(user));
 
-        UserDTo foundUser = userService.getUserById(1);
+        UserDTO foundUser = userService.getUserById(1);
 
         assertNotNull(foundUser);
         assertEquals(user.getUsername(), foundUser.username());

@@ -1,4 +1,4 @@
-package cue.edu.co.velocerentals.enums;
+package cue.edu.co.velocerentals.domain.enums;
 
 import lombok.Getter;
 

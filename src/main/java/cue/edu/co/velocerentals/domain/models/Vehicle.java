@@ -1,7 +1,7 @@
-package cue.edu.co.velocerentals.models;
+package cue.edu.co.velocerentals.domain.models;
 
-import cue.edu.co.velocerentals.enums.VehicleStatus;
-import cue.edu.co.velocerentals.enums.VehicleType;
+import cue.edu.co.velocerentals.domain.enums.VehicleStatus;
+import cue.edu.co.velocerentals.domain.enums.VehicleType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
