@@ -8,7 +8,22 @@ import lombok.Builder;
 import java.time.Instant;
 
 @Builder
-public record UserDTO(@NotNull @NotEmpty(message = "This user already exists") String username, String password,
-                      @Email(message = "Invalid email") @NotEmpty(message = "This email already exists") String email,
-                      String fullName, Instant createdAt, Instant lastLogin) {
+public record UserDTO(@NotNull(message = "Username cannot be null")
+                      @NotEmpty(message = "This user already exists")
+                      String username,
+
+                      @NotEmpty(message = "Password cannot be empty")
+                      String password,
+
+                      @Email(message = "Invalid email")
+                      @NotEmpty(message = "This email already exists")
+                      String email,
+
+                      @NotEmpty(message = "Full name cannot be empty")
+                      String fullName,
+
+                      @NotNull(message = "Created at cannot be null")
+                      Instant createdAt,
+
+                      Instant lastLogin) {
 }
