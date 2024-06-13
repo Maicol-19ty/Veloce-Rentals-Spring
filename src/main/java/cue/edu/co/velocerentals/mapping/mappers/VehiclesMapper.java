@@ -8,20 +8,19 @@ public class VehiclesMapper {
 
     // Method to map from Vehicles model to VehiclesDTo DTO.
     public static VehiclesDTO mapFromModel(Vehicle vehicles) {
-        return new VehiclesDTO(vehicles.getId(), vehicles.getType(), vehicles.getMake(), vehicles.getModel(),
+        return new VehiclesDTO(vehicles.getType(), vehicles.getMake(), vehicles.getModel(),
                 vehicles.getYear(), vehicles.getPricePerDay(), vehicles.getStatus());
     }
 
     // Method to map from VehiclesDTo DTO to Vehicles model.
-    public static Vehicle mapFromDTO(VehiclesDTO vehiclesDTo) {
+    public static Vehicle mapFromDTO(VehiclesDTO vehiclesDTO) {
         return Vehicle.builder()
-                .id(vehiclesDTo.id())
-                .type(vehiclesDTo.type())
-                .make(vehiclesDTo.make())
-                .model(vehiclesDTo.model())
-                .year(vehiclesDTo.year())
-                .pricePerDay(vehiclesDTo.pricePerDay())
-                .status(vehiclesDTo.status())
+                .type(vehiclesDTO.type())
+                .make(vehiclesDTO.make())
+                .model(vehiclesDTO.model())
+                .year(vehiclesDTO.year())
+                .pricePerDay(vehiclesDTO.pricePerDay())
+                .status(vehiclesDTO.status())
                 .build();
     }
 

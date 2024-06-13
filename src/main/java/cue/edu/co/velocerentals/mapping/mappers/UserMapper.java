@@ -13,14 +13,14 @@ public class UserMapper {
     }
 
     // Method to map from UsersDTo DTO to Users model.
-    public static User mapFromDTO(UserDTO userDTo) {
+    public static User mapFromDTO(UserDTO userDTO) {
         return User.builder()
-                .username(userDTo.username())
-                .password(userDTo.password())
-                .email(userDTo.email())
-                .fullName(userDTo.fullName())
-                .createdAt(userDTo.createdAt())
-                .lastLogin(userDTo.lastLogin())
+                .username(userDTO.username())
+                .password(userDTO.password())
+                .email(userDTO.email())
+                .fullName(userDTO.fullName())
+                .createdAt(userDTO.createdAt())
+                .lastLogin(userDTO.lastLogin())
                 .build();
     }
 
