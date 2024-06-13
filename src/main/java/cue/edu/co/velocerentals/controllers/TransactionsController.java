@@ -1,8 +1,6 @@
 package cue.edu.co.velocerentals.controllers;
 
-import cue.edu.co.velocerentals.mapping.dto.ReservationsDTO;
 import cue.edu.co.velocerentals.mapping.dto.TransactionsDTO;
-import cue.edu.co.velocerentals.service.ReservationsService;
 import cue.edu.co.velocerentals.service.TransactionsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class TransactionsController {
     private TransactionsService transactionsService;
 
     @PostMapping("create")
-    public Map<String, String> createTransactions(@RequestBody @Valid TransactionsDTO transactionsDTO, BindingResult result) {
+    public Map<String, String> createTransaction(@RequestBody @Valid TransactionsDTO transactionsDTO, BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             result.getFieldErrors().forEach(error ->
@@ -37,7 +35,7 @@ public class TransactionsController {
     @GetMapping("search/{id}")
     public ResponseEntity<TransactionsDTO> getTransactionById(@PathVariable Integer id) {
         TransactionsDTO transaction = transactionsService.getTransactionById(id);
-        return transaction!= null ? ResponseEntity.ok(transaction) : ResponseEntity.notFound().build();
+        return transaction != null ? ResponseEntity.ok(transaction) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("all")
@@ -47,8 +45,8 @@ public class TransactionsController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<TransactionsDTO> updateTransaction(@PathVariable Integer id, @RequestBody TransactionsDTO TransactionDTO) {
-        TransactionsDTO updatedTransaction = transactionsService.updateTransaction(id, TransactionDTO);
+    public ResponseEntity<TransactionsDTO> updateTransaction(@PathVariable Integer id, @RequestBody TransactionsDTO transactionsDTO) {
+        TransactionsDTO updatedTransaction = transactionsService.updateTransaction(id, transactionsDTO);
         return updatedTransaction != null ? ResponseEntity.ok(updatedTransaction) : ResponseEntity.notFound().build();
     }
 

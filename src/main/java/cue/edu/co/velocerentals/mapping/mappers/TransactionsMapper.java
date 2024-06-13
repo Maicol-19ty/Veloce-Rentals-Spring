@@ -1,25 +1,31 @@
 package cue.edu.co.velocerentals.mapping.mappers;
 
+import cue.edu.co.velocerentals.domain.models.Reservation;
 import cue.edu.co.velocerentals.mapping.dto.TransactionsDTO;
 import cue.edu.co.velocerentals.domain.models.Transaction;
+import cue.edu.co.velocerentals.repository.ReservationsRepository;
 
-// Mapper class for converting between Transactions and TransactionsDto objects.
+
+import java.time.Instant;
+
 public class TransactionsMapper {
 
-    // Method to map from Transactions model to TransactionsDto DTO.
-    public static TransactionsDTO mapFromModel(Transaction transactions) {
-        return new TransactionsDTO(transactions.getReservation(), transactions.getAmount(),
-                transactions.getTransactionDate(), transactions.getPaymentMethod());
-    }
+    public static Transaction mapFromDTO(TransactionsDTO transactionsDTO, ReservationsRepository reservationsRepository) {
+        Reservation reservation = reservationsRepository.findById(transactionsDTO.reservationId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid reservation ID"));
 
-    // Method to map from TransactionsDto DTO to Transactions model.
-    public static Transaction mapFromDTO(TransactionsDTO transactionsDTO) {
         return Transaction.builder()
-                .reservation(transactionsDTO.reservation())
-                .amount(transactionsDTO.amount())
-                .transactionDate(transactionsDTO.transactionDate())
+                .reservation(reservation)
+                .amount(reservation.getTotalCost())
+                .transactionDate(Instant.now())
                 .paymentMethod(transactionsDTO.paymentMethods())
                 .build();
     }
 
+    public static TransactionsDTO mapFromModel(Transaction transaction) {
+        return TransactionsDTO.builder()
+                .reservationId(transaction.getReservation().getId())
+                .paymentMethods(transaction.getPaymentMethod())
+                .build();
+    }
 }
