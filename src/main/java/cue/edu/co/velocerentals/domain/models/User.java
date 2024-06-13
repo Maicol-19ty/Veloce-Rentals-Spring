@@ -41,7 +41,4 @@ public class User {
     @Column(name = "last_login")
     private Instant lastLogin;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserRole> userRoles = new HashSet<>();
-
 }
