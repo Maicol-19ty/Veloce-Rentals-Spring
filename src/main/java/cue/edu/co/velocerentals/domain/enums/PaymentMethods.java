@@ -4,9 +4,9 @@ package cue.edu.co.velocerentals.domain.enums;
 public enum PaymentMethods {
 
     // Enum constants for Credit Card, Debit Card, and Cash.
-    CreditCard("Credit Card"),
-    DebitCard("Debit Card"),
-    Cash("Cash");
+    creditcard("credit card"),
+    debitcard("debit card"),
+    cash("cash");
 
     // Constructor for PaymentMethods enum.
     PaymentMethods(String paymentMethod) {

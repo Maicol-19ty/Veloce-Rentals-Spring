@@ -1,31 +1,30 @@
 package cue.edu.co.velocerentals.domain.enums;
 
+import lombok.Getter;
+
 // Enum representing vehicle statuses
+@Getter
 public enum VehicleStatus {
 
-    AVAILABLE("Available"),  // Available for rent
-    RENTED("Rented"),        // Currently rented
-    MAINTENANCE("Maintenance");  // Under maintenance
+    available("available"),  // Available for rent
+    rented("rented"),        // Currently rented
+    maintenance("maintenance");  // Under maintenance
 
+    // Getter
     private final String status;  // String representation
 
     // Constructor
-    VehicleStatus(String type) {
-        this.status = type;
-    }
-
-    // Getter
-    public String getType() {
-        return this.status;
+    VehicleStatus(String status) {
+        this.status = status;
     }
 
     // Method to get VehicleStatus from its string
-    public static VehicleStatus fromString(String type) {
+    public static VehicleStatus fromString(String status) {
         for (VehicleStatus v : VehicleStatus.values()) {
-            if (v.status.equalsIgnoreCase(type)) {
+            if (v.status.equalsIgnoreCase(status)) {
                 return v;
             }
         }
-        throw new IllegalArgumentException("No constant with text " + type + " found");
+        throw new IllegalArgumentException("No constant with text " + status + " found");
     }
 }

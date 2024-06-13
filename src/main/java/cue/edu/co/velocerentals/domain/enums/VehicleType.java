@@ -6,8 +6,8 @@ import lombok.Getter;
 // Enum representing vehicle types
 public enum VehicleType {
 
-    CAR("Car"),              // Car type
-    MOTORCYCLE("Motorcycle");  // Motorcycle type
+    car("car"),              // Car type
+    motorcycle("motorcycle");  // Motorcycle type
 
     private final String type;  // String representation
 
