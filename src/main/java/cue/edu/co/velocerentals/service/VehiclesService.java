@@ -1,5 +1,7 @@
 package cue.edu.co.velocerentals.service;
 
+import cue.edu.co.velocerentals.domain.enums.VehicleStatus;
+import cue.edu.co.velocerentals.domain.enums.VehicleType;
 import cue.edu.co.velocerentals.domain.models.Vehicle;
 import cue.edu.co.velocerentals.mapping.dto.VehiclesDTO;
 import cue.edu.co.velocerentals.mapping.mappers.VehiclesMapper;
@@ -7,6 +9,7 @@ import cue.edu.co.velocerentals.repository.VehiclesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,6 +56,24 @@ public class VehiclesService {
 
     public void deleteVehicle(Integer id) {
         vehiclesRepository.deleteById(id);
+    }
+
+    public List<VehiclesDTO> filterByType(VehicleType type) {
+        return vehiclesRepository.findByType(type).stream()
+                .map(VehiclesMapper::mapFromModel)
+                .collect(Collectors.toList());
+    }
+
+    public List<VehiclesDTO> filterByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
+        return vehiclesRepository.findByPricePerDayBetween(minPrice, maxPrice).stream()
+                .map(VehiclesMapper::mapFromModel)
+                .collect(Collectors.toList());
+    }
+
+    public List<VehiclesDTO> filterByStatus(VehicleStatus status) {
+        return vehiclesRepository.findByStatus(status).stream()
+                .map(VehiclesMapper::mapFromModel)
+                .collect(Collectors.toList());
     }
 
 }

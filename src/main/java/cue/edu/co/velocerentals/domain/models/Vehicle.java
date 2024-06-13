@@ -1,5 +1,6 @@
 package cue.edu.co.velocerentals.domain.models;
 
+import cue.edu.co.velocerentals.config.VehicleEnumConverter;
 import cue.edu.co.velocerentals.domain.enums.VehicleStatus;
 import cue.edu.co.velocerentals.domain.enums.VehicleType;
 import jakarta.persistence.*;
@@ -24,6 +25,7 @@ public class Vehicle {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
+    @Convert(converter = VehicleEnumConverter.class)
     private VehicleType type;
 
     @Column(name = "make", nullable = false)
@@ -41,6 +43,7 @@ public class Vehicle {
     @ColumnDefault("'available'")
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
+    @Convert(converter = VehicleEnumConverter.class)
     private VehicleStatus status;
 
 }

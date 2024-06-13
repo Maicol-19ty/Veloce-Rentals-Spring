@@ -1,5 +1,7 @@
 package cue.edu.co.velocerentals.controllers;
 
+import cue.edu.co.velocerentals.domain.enums.VehicleStatus;
+import cue.edu.co.velocerentals.domain.enums.VehicleType;
 import cue.edu.co.velocerentals.mapping.dto.VehiclesDTO;
 import cue.edu.co.velocerentals.service.VehiclesService;
 import jakarta.validation.Valid;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +57,24 @@ public class VehiclesController {
     public ResponseEntity<Void> deleteVehicle(@PathVariable Integer id) {
         vehiclesService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/filter/type/{type}")
+    public ResponseEntity<List<VehiclesDTO>> filterByType(@PathVariable VehicleType type) {
+        List<VehiclesDTO> vehicles = vehiclesService.filterByType(type);
+        return ResponseEntity.ok(vehicles);
+    }
+
+    @GetMapping("/filter/price/{minPrice}/{maxPrice}")
+    public ResponseEntity<List<VehiclesDTO>> filterByPriceRange(@PathVariable BigDecimal minPrice, @PathVariable BigDecimal maxPrice) {
+        List<VehiclesDTO> vehicles = vehiclesService.filterByPriceRange(minPrice, maxPrice);
+        return ResponseEntity.ok(vehicles);
+    }
+
+    @GetMapping("/filter/status/{status}")
+    public ResponseEntity<List<VehiclesDTO>> filterByStatus(@PathVariable VehicleStatus status) {
+        List<VehiclesDTO> vehicles = vehiclesService.filterByStatus(status);
+        return ResponseEntity.ok(vehicles);
     }
 
 }
