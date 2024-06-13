@@ -1,5 +1,6 @@
 package cue.edu.co.velocerentals.controllers;
 
+import cue.edu.co.velocerentals.mapping.dto.LoginDTO;
 import cue.edu.co.velocerentals.mapping.dto.UserDTO;
 import cue.edu.co.velocerentals.service.UserService;
 import jakarta.validation.Valid;
@@ -20,7 +21,7 @@ public class UsersController {
     private UserService userService;
 
     @PostMapping("create")
-    public Map<String, String> createUser(@RequestBody @Valid UserDTO usersDTo, BindingResult result) {
+    public Map<String, String> createUser(@RequestBody @Valid UserDTO usersDTO, BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             result.getFieldErrors().forEach(error ->
@@ -28,7 +29,7 @@ public class UsersController {
             );
             return errors;
         }
-        userService.createUser(usersDTo);
+        userService.createUser(usersDTO);
         return Map.of("message", "User created successfully");
     }
 
@@ -45,8 +46,8 @@ public class UsersController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO usersDTo) {
-        UserDTO updatedUser = userService.updateUser(id, usersDTo);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO usersDTO) {
+        UserDTO updatedUser = userService.updateUser(id, usersDTO);
         return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
     }
 
@@ -55,4 +56,15 @@ public class UsersController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserDTO> loginUser(@RequestBody @Valid LoginDTO loginDTO) {
+        UserDTO userDTO = userService.login(loginDTO.username(), loginDTO.password());
+        if (userDTO != null) {
+            return ResponseEntity.ok(userDTO);
+        } else {
+            return ResponseEntity.status(401).build();
+        }
+    }
+
 }
