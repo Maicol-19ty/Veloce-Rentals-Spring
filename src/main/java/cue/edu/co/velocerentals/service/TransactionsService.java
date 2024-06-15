@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TransactionsService {
+public class TransactionsService { // Public service class for managing transaction operations
 
     @Autowired
     private TransactionsRepository transactionsRepository;
@@ -22,23 +22,27 @@ public class TransactionsService {
     @Autowired
     private ReservationsRepository reservationsRepository;
 
+    // Creates a new transaction based on DTO data
     public TransactionsDTO createTransaction(TransactionsDTO transactionsDTO) {
         Transaction transaction = TransactionsMapper.mapFromDTO(transactionsDTO, reservationsRepository);
         transaction = transactionsRepository.save(transaction);
         return TransactionsMapper.mapFromModel(transaction);
     }
 
+    // Retrieves a transaction by its ID
     public TransactionsDTO getTransactionById(Integer id) {
         Optional<Transaction> transaction = transactionsRepository.findById(id);
         return transaction.map(TransactionsMapper::mapFromModel).orElse(null);
     }
 
+    // Retrieves all transactions
     public List<TransactionsDTO> getAllTransactions() {
         return transactionsRepository.findAll().stream()
                 .map(TransactionsMapper::mapFromModel)
                 .collect(Collectors.toList());
     }
 
+    // Updates an existing transaction based on ID and DTO data
     public TransactionsDTO updateTransaction(Integer id, TransactionsDTO transactionsDTO) {
         Optional<Transaction> transactionOptional = transactionsRepository.findById(id);
         if (transactionOptional.isPresent()) {
@@ -54,6 +58,7 @@ public class TransactionsService {
         }
     }
 
+    // Deletes a transaction by its ID
     public void deleteTransaction(Integer id) {
         transactionsRepository.deleteById(id);
     }

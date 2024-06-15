@@ -6,7 +6,7 @@ import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public class VehicleEnumConverter implements AttributeConverter<VehicleStatus, String> {
-
+    // Public class for converting VehicleStatus enum to a String for database storage
     @Override
     public String convertToDatabaseColumn(VehicleStatus attribute) {
         return attribute == null ? null : attribute.getStatus();
