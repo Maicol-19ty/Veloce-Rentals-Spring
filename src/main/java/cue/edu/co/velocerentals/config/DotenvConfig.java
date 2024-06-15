@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DotenvConfig {
 
-    @Bean
+    @Bean // Defines a bean managed by the Spring container.
     public Dotenv getDotenv() {
+        // Loads the environment variables from the .env file.
         return Dotenv.load();
     }
-
 }

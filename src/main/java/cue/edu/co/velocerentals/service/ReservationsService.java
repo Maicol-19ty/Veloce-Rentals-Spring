@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ReservationsService {
+public class ReservationsService { // Public service class for managing reservation operations
 
     @Autowired
     private ReservationsRepository reservationsRepository;
@@ -31,6 +31,7 @@ public class ReservationsService {
     @Autowired
     private UserRepository userRepository;
 
+    // Creates a new reservation based on DTO data
     public ReservationsDTO createReservation(ReservationsDTO reservationsDTO) {
         Reservation reservation = reservationsMapper.mapFromDTO(reservationsDTO);
         long days = ChronoUnit.DAYS.between(reservation.getStartDate(), reservation.getEndDate());
@@ -40,17 +41,20 @@ public class ReservationsService {
         return reservationsMapper.mapFromModel(reservation);
     }
 
+    // Retrieves a reservation by its ID
     public ReservationsDTO getReservationById(Integer id) {
         Optional<Reservation> reservation = reservationsRepository.findById(id);
         return reservation.map(reservationsMapper::mapFromModel).orElse(null);
     }
 
+    // Retrieves all reservations
     public List<ReservationsDTO> getAllReservations() {
         return reservationsRepository.findAll().stream()
                 .map(reservationsMapper::mapFromModel)
                 .collect(Collectors.toList());
     }
 
+    // Updates an existing reservation based on ID and DTO data
     public ReservationsDTO updateReservation(Integer id, ReservationsDTO reservationsDTO) {
         Optional<Reservation> reservationOptional = reservationsRepository.findById(id);
         if (reservationOptional.isPresent()) {
@@ -62,7 +66,7 @@ public class ReservationsService {
             reservation.setStartDate(reservationsDTO.startDate());
             reservation.setEndDate(reservationsDTO.endDate());
 
-            // Recalcular el costo total
+            // Recalculate total cost
             long days = ChronoUnit.DAYS.between(reservation.getStartDate(), reservation.getEndDate());
             BigDecimal totalCost = reservation.getVehicle().getPricePerDay().multiply(BigDecimal.valueOf(days));
             reservation.setTotalCost(totalCost);
@@ -74,15 +78,18 @@ public class ReservationsService {
         }
     }
 
+    // Deletes a reservation by its ID
     public void deleteReservation(Integer id) {
         reservationsRepository.deleteById(id);
     }
 
+    // Checks if a vehicle is available for the specified rental dates
     public boolean isVehicleAvailable(Integer vehicleId, LocalDate startDate, LocalDate endDate) {
         List<Reservation> reservations = reservationsRepository.findByVehicleIdAndDateRange(vehicleId, startDate, endDate);
         return reservations.isEmpty();
     }
 
+    // Selects rental dates for a vehicle and returns availability message
     public String selectRentalDates(Integer vehicleId, LocalDate startDate, LocalDate endDate) {
         if (isVehicleAvailable(vehicleId, startDate, endDate)) {
             return "El vehículo está disponible para las fechas seleccionadas.";
@@ -91,12 +98,14 @@ public class ReservationsService {
         }
     }
 
+    // Retrieves reservations by user ID
     public List<ReservationsDTO> getReservationsByUserId(Integer userId) {
         return reservationsRepository.findByUserId(userId).stream()
                 .map(reservationsMapper::mapFromModel)
                 .collect(Collectors.toList());
     }
 
+    // Retrieves reservations within a specified date range
     public List<ReservationsDTO> getReservationsByDateRange(LocalDate startDate, LocalDate endDate) {
         return reservationsRepository.findByStartDateBetween(startDate, endDate).stream()
                 .map(reservationsMapper::mapFromModel)
